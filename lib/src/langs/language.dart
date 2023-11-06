@@ -87,6 +87,7 @@ class LanguageList {
     'mk': 'Macedonian',
     'mg': 'Malagasy',
     'mai': 'Maithili',
+    // ignore: equal_keys_in_map
     'mg': 'Malagasy',
     'ms': 'Malay',
     'ml': 'Malayalam',
@@ -126,6 +127,7 @@ class LanguageList {
     'su': 'Sundanese',
     'sw': 'Swahili',
     'sv': 'Swedish',
+    // ignore: equal_keys_in_map
     'tl': 'Tagalog (Filipino)',
     'tg': 'Tajik',
     'ta': 'Tamil',
@@ -163,6 +165,23 @@ class LanguageList {
       return true;
     }
     return false;
+  }
+
+  //gets the language from the code or name
+  static Language get(String codeOrLang) {
+    codeOrLang = codeOrLang.toLowerCase();
+    if (_langs.containsKey(codeOrLang) ||
+        _langs.containsValue(codeOrLang.toCamelCase())) {
+      final languageFound = _langs.entries.firstWhere((element) =>
+          element.key.contains(codeOrLang) ||
+          element.value.contains(codeOrLang) ||
+          codeOrLang.contains(element.key) ||
+          codeOrLang.contains(element.value));
+      return Language(languageFound.key, languageFound.value);
+    }
+
+    throw LanguageNotSupportedException(
+        '$codeOrLang is not a supported language.');
   }
 }
 
