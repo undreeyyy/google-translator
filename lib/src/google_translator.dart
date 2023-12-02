@@ -2,9 +2,11 @@ library google_transl;
 
 import 'dart:async';
 import 'dart:convert' show jsonDecode;
+
 import 'package:http/http.dart' as http;
-import './tokens/google_token_gen.dart';
+
 import './langs/language.dart';
+import './tokens/google_token_gen.dart';
 
 part './model/translation.dart';
 
@@ -30,6 +32,8 @@ class GoogleTranslator {
         throw LanguageNotSupportedException(each);
       }
     }
+
+    sourceText.replaceAll('\n', '\\n');
 
     final parameters = {
       'client': client == ClientType.siteGT ? 't' : 'gtx',
