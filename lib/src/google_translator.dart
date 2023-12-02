@@ -33,7 +33,7 @@ class GoogleTranslator {
       }
     }
 
-    sourceText.replaceAll('\n', '\\n');
+    sourceText = sourceText.replaceAll('\n', '\\n');
 
     final parameters = {
       'client': client == ClientType.siteGT ? 't' : 'gtx',
